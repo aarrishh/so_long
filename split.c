@@ -84,5 +84,6 @@ char	**ft_split(char const *s, char c)
 			return (NULL);
 		}
 	}
+	free((char *)s);
 	return (buffer);
 }

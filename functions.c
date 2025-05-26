@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:57:56 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/05/25 16:01:11 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:29:56 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_strjoin_(char *s1, char *s2)
 	return (a);
 }
 
-static int	check(char const *s1, char const *set, int i)
+static int	check_trim(char const *s1, char const *set, int i)
 {
 	int	j;
 
@@ -69,9 +69,9 @@ static int	cal_ind(const char *s1, const char *set)
 	i = 0;
 	while (s1[i])
 	{
-		if (check(s1, set, i) == 0)
+		if (check_trim(s1, set, i) == 0)
 			i++;
-		else if (check(s1, set, i) == -1)
+		else if (check_trim(s1, set, i) == -1)
 			return (check_new_line(s1, '\n', i));
 	}
 	return (i);
@@ -81,9 +81,9 @@ static int	cal_end(const char *s1, const char *set, int end, int i)
 {
 	while (end >= i)
 	{
-		if (check(s1, set, end) == 0)
+		if (check_trim(s1, set, end) == 0)
 			end--;
-		else if (check(s1, set, end) == -1)
+		else if (check_trim(s1, set, end) == -1)
 			break ;
 	}
 	return (end);
@@ -108,6 +108,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (i < end + 1)
 		a[malloc_i++] = s1[i++];
 	a[malloc_i] = '\0';
+	if (s1)
+		free((char*)s1);
 	return (a);
 }
 

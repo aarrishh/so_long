@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:09:13 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/05/24 19:06:24 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:45:35 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,22 @@ char	**remove_white_spaces(char **str)
 			malloc_and_copy_char(str, buffer, i, j);
 		i++;
 	}
+	free_matrix(str);
 	return (buffer);
+}
+
+void	free_matrix(char **buffer)
+{
+	int ind;
+
+	ind = 0;
+	if (buffer)
+	{
+		while (buffer[ind])
+			free(buffer[ind++]);
+		free(buffer);
+		buffer = NULL;
+	}
 }
 
 char	**gnl_call(char *str)
@@ -127,18 +142,22 @@ char	**gnl_call(char *str)
 	split = NULL;
 	res = NULL;
 	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		print_error();
 	cur_line = get_next_line(fd);
 	while (cur_line != NULL)
 	{
 		res = ft_strjoin_(res, cur_line);
 		free(cur_line);
-		cur_line = get_next_line(fd);//voshmi a
+		cur_line = get_next_line(fd);
 	}
+	free(cur_line);
 	res = ft_strtrim(res, "\n\t\v\r\f ");
 	split = ft_split(res, '\n');
 	buffer = remove_white_spaces(split);
 	int i = 0;
 	while(buffer[i] != NULL)
 		printf("---%s\n", buffer[i++]);
+	// free_matrix(buffer);
 	return (buffer);
 }

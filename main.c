@@ -1,116 +1,99 @@
 #include "includes/so_long.h"
 
-void check_equal_line_len(char **str)
-{
-	int	i;
-	int	first_len;
-	int second_len;
-
-	i = 0;
-	first_len = 0;
-	second_len = 0;
-	while (str[i + 1])
-	{
-		first_len = ft_strlen(str[i]);
-		second_len = ft_strlen(str[i + 1]);
-		if (first_len != second_len)
-			print_error();
-		i++;
-	}
-}
-
-void	j_plus_plus(int *j, int *cur_symbol)
-{
-	(*j)++;
-	(*cur_symbol)++;
-}
-
-void	check_valid_character(char *str, int flag)
-{
-	static int p;
-	static int e;
-	static int c;
-	int	j;
-
-	j = 0;
-	while (str[j])
-	{
-		if (str[j] == '1' || str[j] == '0' 
-			|| str[j] == 'M')
-			j++;
-		else if (str[j] == 'P')
-			j_plus_plus(&j, &p);
-		else if (str[j] == 'E')
-			j_plus_plus(&j, &e);
-		else if (str[j] == 'C')
-			j_plus_plus(&j, &c);
-		else
-			print_error();
-	}
-	if (flag == 1 && (e != 1 || p != 1 || c < 1))
-		print_error();
-}
-
-
-void	check_wall(char **str)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (str[0][j])
-	{
-		if (str[0][j] != '1')
-			print_error();
-		j++;
-	}
-	while (str[i + 1])
-	{
-		if (str[i][0] != '1' || str[i][ft_strlen(str[i]) - 1] != '1')
-			print_error();
-		i++;
-	}
-	j = 0;
-	while (str[i][j])
-	{
-		if (str[i][j] != '1')
-			print_error();
-		j++;
-	}
-}
-
-void	check(char **str)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int i;
-	int flag;
 
-	i = 1;
-	flag = 0;
-	check_equal_line_len(str);
-	check_wall(str);
-	while (str[i])
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		if (str[i + 1] == NULL)
-			flag = 1;
-		check_valid_character(str[i++], flag);
+		if (s1[i] == s2[i])
+			i++;
+		else
+			return (s1[i] - s2[i]);
 	}
+	return (s1[i] - s2[i]);
+}
+
+void	check_file(char *file)
+{
+	int i;
+	int res;
+
+	i = 0;
+	while (file[i])
+	{
+		while (file[i] != '.' && file[i])
+			i++;
+		res = ft_strcmp((file + i), ".ber");
+		if (res != 0)
+		{
+			write (1, "Invalid map's name!\n", 20);
+			exit(5);
+		}
+		else
+			break;
+	}
+}
+
+void	init_map(t_map *map)
+{
+	map->width = 0;
+	map->height = 0;
+	map->count_P = 0;
+	map->count_E = 0;
+	map->count_C = 0;
+	map->player.pos_x = -1;
+	map->player.pos_y = -1;
 }
 
 int main(int argc, char **argv)
 {
-	char	**res;
+	char		**res;
+	t_map		map;
 
+	init_map(&map);
 	res = NULL;
 	if (argc == 2)
 	{
+		check_file(argv[1]);
 		res = gnl_call(argv[1]);
-		check(res);
+		if (!res || !(*res))
+		{
+			free(res);
+			print_error();
+		}
+		check(res, &map);
+		// free_matrix(res);
 	}
 	else
 		write(2, "Error\n", 6);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if mer nishy = 0 |> i+1 (esi while-i mej)
+// if n < 0 or i >= n or j < n or j >= m or kubiky != 0 |> return;
+
+
 
 
 
@@ -151,7 +134,7 @@ int main(int argc, char **argv)
 // 		// img = mlx_xpm_file_to_image(mlx, "images/fon.xpm", &img_width, &img_height);
 // 		// if (!img)
 // 		// {
-// 		// 	printf("Failed to load image: images/fon.xpm\n");
+// 		// 	("Failed to load image: images/fon.xpm\n");
 // 		// 	return (1);
 // 		// }
 // 		// if (i == 0)
