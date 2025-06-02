@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 20:18:12 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/02 20:53:53 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 22:24:59 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	move_player(t_map *map)
 		else if (map->grid[new_y][new_x] == 'E')
 		{
 			if (map->count_C == 0)
-				exit(1);
+				exit(0);
 			else
 			{
 				map->grid[map->player.pos_y][map->player.pos_x] = '0';
@@ -99,13 +99,19 @@ void	game_loop(t_map *map)
 		move_player(map);
 }
 
+// void if_tile_equal_symbol(t_map map, int x, int y)
+// {
+	
+// }
+
 void	redraw(t_map *map)
 {
-	int y = 0;
+	int y;
 	int x;
 	char tile;
 	char *steps_str;
 
+	y = 0;
 	mlx_clear_window(map->game.mlx, map->game.win);
 	while (y < map->height)
 	{
@@ -125,7 +131,7 @@ void	redraw(t_map *map)
 				if (map->count_C != 0)
 					mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_c_e, x * TILE, y * TILE);
 				else
-					mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_o_e, x * TILE, y * TILE);
+					mlx_ut_image_to_window(map->game.mlx, map->game.win, map->game.img_o_e, x * TILE, y * TILE);
 			}
 			else if (tile == 'M')
 				mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_m, x * TILE, y * TILE);
@@ -134,7 +140,7 @@ void	redraw(t_map *map)
 		y++;
 	}
 	steps_str = ft_itoa(map->steps);
-	mlx_string_put(map->game.mlx, map->game.win, 50, 60, 0x0000FF, steps_str);
+	mlx_string_put(map->game.mlx, map->game.win, 46, 58, 0x0000FF, steps_str);
 	free(steps_str);
 }
 
@@ -166,10 +172,11 @@ void	mlx(char **str, t_map *map)
 
 	if (!map->game.img_bg || !map->game.img_c || !map->game.img_p || !map->game.img_m)
 	{
-		printf("Failed to load one or more images\n");
-		return ;
+		write(1, "Failed to load one or more images\n", 35);
+		free_matrix(str);
+		exit(1);
 	}
-
+	
 	y = 0;
 	while (y < map->height)
 	{
@@ -196,8 +203,8 @@ void	mlx(char **str, t_map *map)
 	map->key_pressed = 0;
 
 	mlx_hook(map->game.win, 17, 0, close_window, NULL);
-	mlx_hook(map->game.win, 2, 1L<<0, handle_keypress, map);
-	mlx_hook(map->game.win, 3, 1L<<1, handle_keyrelease, map);
+	mlx_hook(map->game.win, 2, 1, handle_keypress, map);
+	mlx_hook(map->game.win, 3, 2, handle_keyrelease, map);
 	mlx_loop_hook(map->game.mlx, (int (*)(void *))game_loop, map);
 	mlx_loop(map->game.mlx);
 }

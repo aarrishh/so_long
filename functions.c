@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:57:56 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/02 20:36:07 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:34:09 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char *ft_strdup(char* str)
 	buffer[i] = '\0';
 	return(buffer);
 }
+
 
 char *ft_itoa(int nbr)
 {

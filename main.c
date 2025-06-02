@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 			print_error();
 		}
 		check(res, &map);
-		// free_matrix(res);
+		free_matrix(res);
 	}
 	else
 		write(2, "Error\n", 6);

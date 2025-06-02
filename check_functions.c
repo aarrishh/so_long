@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/02 20:01:50 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:58:19 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	check_E_and_C_in_map(char **map)
 				print_error();
 			j++;
 		}
-		printf("vaxarar%s\n",map[3]);
 		i++;
 	}
 }
@@ -163,6 +162,13 @@ char	**copy_map(char **str, t_map *map)
 	return (buffer);
 }
 
+void	free_when_position_negative(char **buffer, char **str)
+{
+	free_matrix(buffer);
+	free_matrix(str);
+	print_error();
+}
+
 void	check(char **str, t_map *map)
 {
 	int i;
@@ -183,11 +189,9 @@ void	check(char **str, t_map *map)
 	player_y(str, map);
 	buffer = copy_map(str, map);
 	if (map->player.pos_x < 0 || map->player.pos_y < 0)
-	{
-		fprintf(stderr, "Invalid player position\n");//poxel
-		exit(1);
-	}
+		free_when_position_negative(buffer, str);
 	flood_fill(buffer, map, map->player.pos_x, map->player.pos_y);
 	check_E_and_C_in_map(buffer);
+	free_matrix(buffer);
 	mlx(str, map);
 }

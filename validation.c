@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:09:13 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/05/25 19:45:35 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:49:52 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	malloc_and_copy_char(char **str, char **buffer, int i, int j)
 void	print_error(void)
 {
 	write(1, "Error\n", 6);
-	exit(-1);
+	exit(1);
 }
 
 void	check_white_spaces(char **str, int i, int j)
@@ -155,9 +155,6 @@ char	**gnl_call(char *str)
 	res = ft_strtrim(res, "\n\t\v\r\f ");
 	split = ft_split(res, '\n');
 	buffer = remove_white_spaces(split);
-	int i = 0;
-	while(buffer[i] != NULL)
-		printf("---%s\n", buffer[i++]);
 	// free_matrix(buffer);
 	return (buffer);
 }
