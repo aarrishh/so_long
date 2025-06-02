@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/05/26 22:12:17 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/05/31 21:15:57 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,63 @@ void	check_E_and_C_in_map(char **map)
 	}
 }
 
+void	copy_map_part_2(char *str, char *buffer)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		buffer[i] = str[i];
+		i++;
+	}
+	buffer[i] = '\0';
+}
+
+void	free_array(char **buffer)
+{
+	int i;
+	
+	i = 0;
+	while(buffer[i])
+		free(buffer[i++]);
+	free(buffer);
+}
+
+char	**copy_map(char **str, t_map *map)
+{
+	int width;
+	int heigth;
+	char **buffer;
+	int i;
+
+	i = 0;
+	buffer = NULL;
+	width = width_map(str, map);
+	heigth = height_map(str, map);
+	buffer = (char **)malloc((heigth + 1) * sizeof(char *));
+	if (!buffer)
+		return (NULL);
+	while (heigth)
+	{
+		buffer[i] = (char *)malloc((width + 1) * sizeof(char));
+		if (!buffer[i])
+		{
+			free_array(buffer);
+			return (NULL);
+		}
+		copy_map_part_2(str[i], buffer[i]);
+		i++;
+		heigth--;
+	}
+	return (buffer);
+}
+
 void	check(char **str, t_map *map)
 {
 	int i;
 	int flag;
+	char **buffer;
 
 	i = 1;
 	flag = 0;
@@ -126,11 +179,13 @@ void	check(char **str, t_map *map)
 	}
 	player_x(str, map);
 	player_y(str, map);
+	buffer = copy_map(str, map);
 	if (map->player.pos_x < 0 || map->player.pos_y < 0)
 	{
-		fprintf(stderr, "Invalid player position\n");
+		fprintf(stderr, "Invalid player position\n");//poxel
 		exit(1);
 	}
-	flood_fill(str, map->player.pos_x, map->player.pos_y);
-	check_E_and_C_in_map(str);
+	flood_fill(buffer, map, map->player.pos_x, map->player.pos_y);
+	check_E_and_C_in_map(buffer);
+	mlx(str, map);
 }

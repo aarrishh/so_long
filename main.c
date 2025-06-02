@@ -45,6 +45,8 @@ void	init_map(t_map *map)
 	map->count_C = 0;
 	map->player.pos_x = -1;
 	map->player.pos_y = -1;
+	map->player.e_pos_y = -1;
+	map->player.e_pos_x = -1;
 }
 
 int main(int argc, char **argv)
