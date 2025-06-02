@@ -5,24 +5,106 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 19:06:47 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/01 19:50:24 by arimanuk         ###   ########.fr       */
+/*   Created: 2025/06/02 20:18:12 by arimanuk          #+#    #+#             */
+/*   Updated: 2025/06/02 20:53:53 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-int	keypress_wrapper(int keycode, void *param)
+int	handle_keypress(int keycode, t_map *map)
 {
-	t_map *map = (t_map *)param;
-	return handle_keypress(keycode, map);
+	if (keycode == ESC)
+		exit(0);
+	else if (keycode == RIGHT || keycode == LEFT || keycode == UP || keycode == DOWN)
+		map->key_pressed = keycode;
+	return (0);
+}
+
+int	handle_keyrelease(int keycode, t_map *map)
+{
+	if (keycode == map->key_pressed)
+		map->key_pressed = 0;
+	return (0);
+}
+
+void	move_player(t_map *map)
+{
+	int	new_x = map->player.pos_x;
+	int	new_y = map->player.pos_y;
+
+	if (map->key_pressed == UP)
+		new_y--;
+	else if (map->key_pressed == DOWN)
+		new_y++;
+	else if (map->key_pressed == LEFT)
+		new_x--;
+	else if (map->key_pressed == RIGHT)
+		new_x++;
+
+	if (map->grid[new_y][new_x] != '1')
+	{
+		if (map->grid[new_y][new_x] == 'C')
+		{
+			if (map->player.pos_x == map->player.e_pos_x 
+				&& map->player.pos_y == map->player.e_pos_y)
+				map->grid[map->player.pos_y][map->player.pos_x] = 'E';
+			else
+				map->grid[map->player.pos_y][map->player.pos_x] = '0';
+			map->grid[new_y][new_x] = 'P';
+			map->count_C--;
+			// map->player.pos_x = new_x;
+			// map->player.pos_y = new_y;
+			map->steps++;
+		}
+		else if (map->grid[new_y][new_x] == 'M')
+			exit(1);
+		else if (map->grid[new_y][new_x] == 'E')
+		{
+			if (map->count_C == 0)
+				exit(1);
+			else
+			{
+				map->grid[map->player.pos_y][map->player.pos_x] = '0';
+				map->grid[new_y][new_x] = 'P';
+				// map->player.pos_x = new_x;
+				// map->player.pos_y = new_y;
+				map->player.e_pos_x = new_x;
+				map->player.e_pos_y = new_y;
+				map->steps++;
+			}
+		}
+		else
+		{
+			if (map->player.pos_x == map->player.e_pos_x && 
+				map->player.pos_y == map->player.e_pos_y)
+				map->grid[map->player.pos_y][map->player.pos_x] = 'E';
+			else
+				map->grid[map->player.pos_y][map->player.pos_x] = '0';
+			map->grid[new_y][new_x] = 'P';
+			// map->player.pos_x = new_x;
+			// map->player.pos_y = new_y;
+			map->steps++;
+		}
+		map->player.pos_x = new_x;
+		map->player.pos_y = new_y;
+		redraw(map);
+	}
+}
+
+void	game_loop(t_map *map)
+{
+	map->frame_count++;
+	if (map->key_pressed && map->frame_count % 6500 == 0)
+		move_player(map);
 }
 
 void	redraw(t_map *map)
 {
-	int		y = 0;
-	int		x;
-	char	tile;
+	int y = 0;
+	int x;
+	char tile;
+	char *steps_str;
 
 	mlx_clear_window(map->game.mlx, map->game.win);
 	while (y < map->height)
@@ -43,76 +125,17 @@ void	redraw(t_map *map)
 				if (map->count_C != 0)
 					mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_c_e, x * TILE, y * TILE);
 				else
-				mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_o_e, x * TILE, y * TILE);
+					mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_o_e, x * TILE, y * TILE);
 			}
-				else if (tile == 'M')
+			else if (tile == 'M')
 				mlx_put_image_to_window(map->game.mlx, map->game.win, map->game.img_m, x * TILE, y * TILE);
 			x++;
 		}
 		y++;
 	}
-}
-
-
-int	handle_keypress(int keycode, t_map *map)
-{
-	int	new_x = map->player.pos_x;
-	int	new_y = map->player.pos_y;
-
-	if (keycode == ESC)
-		exit(0);
-	else if (keycode == UP)
-		new_y--;
-	else if (keycode == DOWN)
-		new_y++;
-	else if (keycode == LEFT)
-		new_x--;
-	else if (keycode == RIGHT)
-		new_x++;
-	if (map->grid[new_y][new_x] != '1')
-	{
-		if (map->grid[new_y][new_x] == 'C')
-		{
-			if (map->player.pos_x == map->player.e_pos_x 
-				&& map->player.pos_y == map->player.e_pos_y)
-				map->grid[map->player.pos_y][map->player.pos_x] = 'E';
-			else
-				map->grid[map->player.pos_y][map->player.pos_x] = '0';
-			map->grid[new_y][new_x] = 'P';
-			map->count_C--;
-			map->player.pos_x = new_x;
-			map->player.pos_y = new_y;
-		}
-		else if (map->grid[new_y][new_x] == 'M')
-			exit(1);
-		else if (map->grid[new_y][new_x] == 'E')
-		{
-			if (map->count_C == 0)
-				exit(1);
-			else
-			{
-				map->grid[map->player.pos_y][map->player.pos_x] = '0';
-				map->grid[new_y][new_x] = 'P';
-				map->player.pos_x = new_x;
-				map->player.pos_y = new_y;
-				map->player.e_pos_x = new_x;
-				map->player.e_pos_y = new_x;
-			}
-		}
-		else
-		{
-			if (map->player.pos_x == map->player.e_pos_x && 
-				map->player.pos_y == map->player.e_pos_y)
-				map->grid[map->player.pos_y][map->player.pos_x] = 'E';
-			else
-				map->grid[map->player.pos_y][map->player.pos_x] = '0';
-			map->grid[new_y][new_x] = 'P';
-			map->player.pos_x = new_x;
-			map->player.pos_y = new_y;
-		}
-	}
-	redraw(map);
-	return (0);
+	steps_str = ft_itoa(map->steps);
+	mlx_string_put(map->game.mlx, map->game.win, 50, 60, 0x0000FF, steps_str);
+	free(steps_str);
 }
 
 int	close_window(void *param)
@@ -124,10 +147,10 @@ int	close_window(void *param)
 
 void	mlx(char **str, t_map *map)
 {
-	int		x;
-	int		y;
-	int		img_width;
-	int		img_height;
+	int x;
+	int y;
+	int img_width;
+	int img_height;
 
 	map->grid = str;
 	map->game.mlx = mlx_init();
@@ -140,11 +163,13 @@ void	mlx(char **str, t_map *map)
 	map->game.img_w = mlx_xpm_file_to_image(map->game.mlx, "images/wall.xpm", &img_width, &img_height);
 	map->game.img_c_e = mlx_xpm_file_to_image(map->game.mlx, "images/close_door.xpm", &img_width, &img_height);
 	map->game.img_o_e = mlx_xpm_file_to_image(map->game.mlx, "images/open_door.xpm", &img_width, &img_height);
+
 	if (!map->game.img_bg || !map->game.img_c || !map->game.img_p || !map->game.img_m)
 	{
 		printf("Failed to load one or more images\n");
 		return ;
 	}
+
 	y = 0;
 	while (y < map->height)
 	{
@@ -167,8 +192,12 @@ void	mlx(char **str, t_map *map)
 		}
 		y++;
 	}
+
+	map->key_pressed = 0;
+
 	mlx_hook(map->game.win, 17, 0, close_window, NULL);
-	mlx_key_hook(map->game.win, handle_keypress, NULL);
-	mlx_key_hook(map->game.win, keypress_wrapper, map);
+	mlx_hook(map->game.win, 2, 1L<<0, handle_keypress, map);
+	mlx_hook(map->game.win, 3, 1L<<1, handle_keyrelease, map);
+	mlx_loop_hook(map->game.mlx, (int (*)(void *))game_loop, map);
 	mlx_loop(map->game.mlx);
 }

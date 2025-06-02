@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/05/31 21:15:57 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:01:50 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	check_E_and_C_in_map(char **map)
 				print_error();
 			j++;
 		}
+		printf("vaxarar%s\n",map[3]);
 		i++;
 	}
 }
@@ -146,6 +147,7 @@ char	**copy_map(char **str, t_map *map)
 	buffer = (char **)malloc((heigth + 1) * sizeof(char *));
 	if (!buffer)
 		return (NULL);
+	buffer[heigth] = NULL;
 	while (heigth)
 	{
 		buffer[i] = (char *)malloc((width + 1) * sizeof(char));

@@ -6,7 +6,7 @@
 #    By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/20 16:14:52 by arimanuk          #+#    #+#              #
-#    Updated: 2025/05/28 19:52:29 by arimanuk         ###   ########.fr        #
+#    Updated: 2025/06/02 19:57:36 by arimanuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = so_long
 INC = ../so_long.h ../get_next_line.h
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  -g3 -fsanitize=address
 
 MLX_DIR = ./minilibx-linux
 

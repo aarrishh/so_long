@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:10:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/01 19:48:07 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:36:44 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_map{
 	t_player player;
 	t_game game;
 	int key_pressed;
+	int frame_count;
+	int steps;
 } t_map;
 
 char	*ft_strtrim(char const *s1, char const *set);
@@ -70,5 +72,7 @@ void	player_x(char **str, t_map *map);
 void	player_y(char **str, t_map *map);
 void	mlx(char **str, t_map *map);
 int		handle_keypress(int keycode, t_map *map);
+void	redraw(t_map *map);
+char	*ft_itoa(int nbr);
 
 # endif

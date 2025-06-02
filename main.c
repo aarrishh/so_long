@@ -47,6 +47,9 @@ void	init_map(t_map *map)
 	map->player.pos_y = -1;
 	map->player.e_pos_y = -1;
 	map->player.e_pos_x = -1;
+	map->key_pressed = 0;
+	map->frame_count = 0;
+	map->steps = 0;
 }
 
 int main(int argc, char **argv)
