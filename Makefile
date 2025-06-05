@@ -6,7 +6,7 @@
 #    By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/20 16:14:52 by arimanuk          #+#    #+#              #
-#    Updated: 2025/06/02 21:47:50 by arimanuk         ###   ########.fr        #
+#    Updated: 2025/06/05 17:40:44 by arimanuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ MLX_DIR = ./minilibx-linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lGL -lGLU
 
 SRCS = main.c validation.c get_next_line.c get_next_line_utils.c \
-		functions.c split.c check_functions.c flood_fill.c mlx.c
+		split.c check_functions.c flood_fill.c mlx.c \
+		utils.c utils_1.c map_operations.c check_functions_1.c \
+		mlx_move_player.c mlx_draw_window.c
 
 OBJS = $(SRCS:.c=.o)
 

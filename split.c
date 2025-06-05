@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/03 20:35:44 by arimanuk          #+#    #+#             */
+/*   Updated: 2025/06/03 21:00:44 by arimanuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/so_long.h"
 
 static int	getword(char const *s, char c)
@@ -80,8 +92,7 @@ char	**ft_split(char const *s, char c)
 		{
 			while (ind)
 				free(buffer[--ind]);
-			free(buffer);
-			return (NULL);
+			return (free(buffer), (NULL));
 		}
 	}
 	free((char *)s);

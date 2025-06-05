@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/03 20:34:17 by arimanuk          #+#    #+#             */
+/*   Updated: 2025/06/05 21:36:55 by arimanuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/so_long.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] || s2[i])
@@ -17,8 +29,8 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	check_file(char *file)
 {
-	int i;
-	int res;
+	int	i;
+	int	res;
 
 	i = 0;
 	while (file[i])
@@ -29,10 +41,10 @@ void	check_file(char *file)
 		if (res != 0)
 		{
 			write (1, "Invalid map's name!\n", 20);
-			exit(5);
+			exit(1);
 		}
 		else
-			break;
+			break ;
 	}
 }
 
@@ -40,9 +52,9 @@ void	init_map(t_map *map)
 {
 	map->width = 0;
 	map->height = 0;
-	map->count_P = 0;
-	map->count_E = 0;
-	map->count_C = 0;
+	map->count_p = 0;
+	map->count_e = 0;
+	map->count_c = 0;
 	map->player.pos_x = -1;
 	map->player.pos_y = -1;
 	map->player.e_pos_y = -1;
@@ -52,7 +64,7 @@ void	init_map(t_map *map)
 	map->steps = 0;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	char		**res;
 	t_map		map;
@@ -75,79 +87,3 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if mer nishy = 0 |> i+1 (esi while-i mej)
-// if n < 0 or i >= n or j < n or j >= m or kubiky != 0 |> return;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void zibilanoc(void)
-// {
-// 	void	*mlx;
-// 	void	*win;
-// 	void	*img;
-// 	// int		img_width = 4000;
-// 	// int		img_height = 3500;
-
-// 	mlx = mlx_init();
-// 	win = mlx_new_window(mlx, 3500, 2800, "XPM Image");
-// 	int i = 0;
-// 	while(i < 2)
-// 	{
-// 		// img = mlx_xpm_file_to_image(mlx, "images/fon.xpm", &img_width, &img_height);
-// 		// if (!img)
-// 		// {
-// 		// 	("Failed to load image: images/fon.xpm\n");
-// 		// 	return (1);
-// 		// }
-// 		// if (i == 0)
-// 		// 	mlx_put_image_to_window(mlx, win, img, 0, 0);
-// 		// else
-// 		// 	mlx_put_image_to_window(mlx, win, img, 300, 500);
-
-// 		// i++;
-// 	}
-// 	mlx_loop(mlx);
-// }

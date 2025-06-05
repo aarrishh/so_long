@@ -6,17 +6,17 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/02 21:58:19 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:19:02 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-void check_equal_line_len(char **str)
+void	check_equal_line_len(char **str)
 {
 	int	i;
 	int	first_len;
-	int second_len;
+	int	second_len;
 
 	i = 0;
 	first_len = 0;
@@ -44,23 +44,22 @@ void	check_valid_character(char *str, int flag, t_map *map)
 	j = 0;
 	while (str[j])
 	{
-		if (str[j] == '1' || str[j] == '0' 
+		if (str[j] == '1' || str[j] == '0'
 			|| str[j] == 'M')
 			j++;
 		else if (str[j] == 'P')
-			j_plus_plus(&j, &(map->count_P));
+			j_plus_plus(&j, &(map->count_p));
 		else if (str[j] == 'E')
-			j_plus_plus(&j, &(map->count_E));
+			j_plus_plus(&j, &(map->count_e));
 		else if (str[j] == 'C')
-			j_plus_plus(&j, &(map->count_C));
+			j_plus_plus(&j, &(map->count_c));
 		else
 			print_error();
 	}
-	if (flag == 1 && (map->count_E != 1 || map->count_P != 1 
-		|| map->count_C < 1))
+	if (flag == 1 && (map->count_e != 1 || map->count_p != 1
+			|| map->count_c < 1))
 		print_error();
 }
-
 
 void	check_wall(char **str)
 {
@@ -72,7 +71,7 @@ void	check_wall(char **str)
 	while (str[0][j] != '\0')
 	{
 		if (str[0][j] != '1')
-		print_error();
+			print_error();
 		j++;
 	}
 	while (str[i + 1])
@@ -90,90 +89,11 @@ void	check_wall(char **str)
 	}
 }
 
-void	check_E_and_C_in_map(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'E' || map[i][j] == 'C')
-				print_error();
-			j++;
-		}
-		i++;
-	}
-}
-
-void	copy_map_part_2(char *str, char *buffer)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		buffer[i] = str[i];
-		i++;
-	}
-	buffer[i] = '\0';
-}
-
-void	free_array(char **buffer)
-{
-	int i;
-	
-	i = 0;
-	while(buffer[i])
-		free(buffer[i++]);
-	free(buffer);
-}
-
-char	**copy_map(char **str, t_map *map)
-{
-	int width;
-	int heigth;
-	char **buffer;
-	int i;
-
-	i = 0;
-	buffer = NULL;
-	width = width_map(str, map);
-	heigth = height_map(str, map);
-	buffer = (char **)malloc((heigth + 1) * sizeof(char *));
-	if (!buffer)
-		return (NULL);
-	buffer[heigth] = NULL;
-	while (heigth)
-	{
-		buffer[i] = (char *)malloc((width + 1) * sizeof(char));
-		if (!buffer[i])
-		{
-			free_array(buffer);
-			return (NULL);
-		}
-		copy_map_part_2(str[i], buffer[i]);
-		i++;
-		heigth--;
-	}
-	return (buffer);
-}
-
-void	free_when_position_negative(char **buffer, char **str)
-{
-	free_matrix(buffer);
-	free_matrix(str);
-	print_error();
-}
-
 void	check(char **str, t_map *map)
 {
-	int i;
-	int flag;
-	char **buffer;
+	int		i;
+	int		flag;
+	char	**buffer;
 
 	i = 1;
 	flag = 0;
@@ -187,11 +107,11 @@ void	check(char **str, t_map *map)
 	}
 	player_x(str, map);
 	player_y(str, map);
-	buffer = copy_map(str, map);
+	buffer = copy_map(str, map, 0);
 	if (map->player.pos_x < 0 || map->player.pos_y < 0)
 		free_when_position_negative(buffer, str);
 	flood_fill(buffer, map, map->player.pos_x, map->player.pos_y);
-	check_E_and_C_in_map(buffer);
+	check_e_and_c_in_map(buffer);
 	free_matrix(buffer);
 	mlx(str, map);
 }

@@ -6,20 +6,13 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:09:13 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/02 21:49:52 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:49:27 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-int	is_white_space(char c)
-{
-	if ((c >= 9 && c <= 13) || (c == 32))
-		return (1);
-	return (0);
-}
-
-char **malloc_buffer(char **buffer)
+char	**malloc_buffer(char **buffer)
 {
 	int	len;
 
@@ -49,12 +42,6 @@ void	malloc_and_copy_char(char **str, char **buffer, int i, int j)
 	buffer[i][index_j] = '\0';
 }
 
-void	print_error(void)
-{
-	write(1, "Error\n", 6);
-	exit(1);
-}
-
 void	check_white_spaces(char **str, int i, int j)
 {
 	while (str[i][j] && str[i][j] != '\n')
@@ -66,33 +53,12 @@ void	check_white_spaces(char **str, int i, int j)
 	}
 }
 
-int	line_contain_only_white_spaces(char *str)
+char	**remove_white_spaces(char **str, int i)
 {
-	int	j;
-
-	j = 0;
-	while(str[j])
-	{
-		if (is_white_space(str[j]) == 1)
-			j++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
-char	**remove_white_spaces(char **str)
-{
-	int		i;
 	int		j;
-	int		len;
 	char	**buffer;
 
-	j = 0;
-	i = 0;
-	len = 0;
 	buffer = malloc_buffer(str);
-	i = 0;
 	while (str[i])
 	{
 		if (line_contain_only_white_spaces(str[i]) == 1)
@@ -114,20 +80,6 @@ char	**remove_white_spaces(char **str)
 	}
 	free_matrix(str);
 	return (buffer);
-}
-
-void	free_matrix(char **buffer)
-{
-	int ind;
-
-	ind = 0;
-	if (buffer)
-	{
-		while (buffer[ind])
-			free(buffer[ind++]);
-		free(buffer);
-		buffer = NULL;
-	}
 }
 
 char	**gnl_call(char *str)
@@ -154,7 +106,6 @@ char	**gnl_call(char *str)
 	free(cur_line);
 	res = ft_strtrim(res, "\n\t\v\r\f ");
 	split = ft_split(res, '\n');
-	buffer = remove_white_spaces(split);
-	// free_matrix(buffer);
+	buffer = remove_white_spaces(split, 0);
 	return (buffer);
 }
