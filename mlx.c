@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 20:18:12 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 22:14:38 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:19:27 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_image(t_map *map, char **str, int *img_width, int *img_height)
 	map->game.img_m = mlx_xpm_file_to_image(map->game.mlx,
 			"images/monster.xpm", img_width, img_height);
 	map->game.img_m2 = mlx_xpm_file_to_image(map->game.mlx,
-		"images/monster_2.xpm", img_width, img_height);
+			"images/monster_2.xpm", img_width, img_height);
 	map->game.img_w = mlx_xpm_file_to_image(map->game.mlx,
 			"images/wall.xpm", img_width, img_height);
 	map->game.img_c_e = mlx_xpm_file_to_image(map->game.mlx,
@@ -62,6 +62,18 @@ void	set_image(t_map *map, char **str, int *img_width, int *img_height)
 		free_matrix(str);
 		exit(1);
 	}
+}
+
+void	put_image_for_monster_mlx(t_map *map, int x, int y)
+{
+	void	*monster_img;
+
+	if ((map->frame_count / 30) % 2 == 0)
+		monster_img = map->game.img_m;
+	else
+		monster_img = map->game.img_m2;
+	mlx_put_image_to_window(map->game.mlx, map->game.win,
+		monster_img, x * TILE, y * TILE);
 }
 
 void	if_tile_equal_symbol_mlx(t_map *map, char **str, int x, int y)
@@ -78,17 +90,7 @@ void	if_tile_equal_symbol_mlx(t_map *map, char **str, int x, int y)
 		mlx_put_image_to_window(map->game.mlx, map->game.win,
 			map->game.img_p, x * TILE, y * TILE);
 	else if (tile == 'M')
-	{
-		void *monster_img;
-	
-		if ((map->frame_count / 30) % 2 == 0)
-			monster_img = map->game.img_m;
-		else
-			monster_img = map->game.img_m2;
-	
-		mlx_put_image_to_window(map->game.mlx, map->game.win,
-			monster_img, x * TILE, y * TILE);
-	}
+		put_image_for_monster_mlx(map, x, y);
 	else if (tile == '1')
 		mlx_put_image_to_window(map->game.mlx, map->game.win,
 			map->game.img_w, x * TILE, y * TILE);

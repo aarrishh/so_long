@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:14:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 22:42:07 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:22:13 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,21 @@
 void	game_loop(t_map *map)
 {
 	map->frame_count += 1;
-	if (map->key_pressed && map->frame_count % 2000 == 0)
+	if (map->key_pressed && map->frame_count % 6500 == 0)
 		move_player(map);
-	if (map->frame_count % 300 == 0)
+	if (map->frame_count % 100000 == 0)
 		redraw(map);
+}
+
+void	put_image_for_monster_redraw(t_map *map, int x, int y)
+{
+	void	*monster_img;
+	if ((map->frame_count / 100000) % 2 == 0)
+		monster_img = map->game.img_m;
+	else
+		monster_img = map->game.img_m2;
+	mlx_put_image_to_window(map->game.mlx, map->game.win,
+		monster_img, x * TILE, y * TILE);
 }
 
 void	if_tile_equal_symbol_redraw(t_map *map, int x, int y)
@@ -45,15 +56,7 @@ void	if_tile_equal_symbol_redraw(t_map *map, int x, int y)
 				map->game.img_o_e, x * TILE, y * TILE);
 	}
 	else if (tile == 'M')
-	{
-		void *monster_img;
-		if ((map->frame_count / 5000) % 2 == 0)
-			monster_img = map->game.img_m;
-		else
-			monster_img = map->game.img_m2;
-		mlx_put_image_to_window(map->game.mlx, map->game.win,
-			monster_img, x * TILE, y * TILE);
-	}
+		put_image_for_monster_redraw(map, x, y);
 }
 
 void	redraw(t_map *map)
