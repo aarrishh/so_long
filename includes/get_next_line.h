@@ -6,14 +6,14 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:51:28 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/03/26 19:30:33 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/08 18:36:28 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4200
 # endif
 # include <stdio.h>
 # include <fcntl.h>

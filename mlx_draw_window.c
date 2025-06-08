@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:14:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/06 22:22:13 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/08 18:21:34 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	game_loop(t_map *map)
 void	put_image_for_monster_redraw(t_map *map, int x, int y)
 {
 	void	*monster_img;
+
 	if ((map->frame_count / 100000) % 2 == 0)
 		monster_img = map->game.img_m;
 	else

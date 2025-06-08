@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:51:41 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 17:03:57 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:06:24 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,47 +97,30 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (a);
 }
 
-char	*ft_itoa(int nbr)
+char	*ft_itoa(int n)
 {
-	int		count;
-	int		num;
-	char	*str;
+	char	*arr;
+	int		len;
+	long	long_n;
 
-	count = 1;
-	num = nbr;
-	str = NULL;
-	if (nbr == 0)
+	if (n == 0)
 		return (ft_strdup("0"));
-	if (nbr == -2147483648)
-		return (ft_strdup("-2147483648"));
-	if (nbr < 0)
-	{
-		nbr = -nbr;
-		count++;
-	}
-	while (nbr > 9)
-	{
-		nbr = nbr / 10;
-		count++;
-	}
-	str = (char *)malloc((count + 1) * sizeof(char));
-	if (!str)
+	len = ft_len(n);
+	arr = malloc(sizeof(char) *(len + 1));
+	if (!arr)
 		return (NULL);
-	str[count] = '\0';
-	count--;
-	if (num < 0)
+	long_n = (long)n;
+	arr[len] = '\0';
+	len--;
+	if (n < 0)
 	{
-		num = -num;
-		str[0] = '-';
+		arr[0] = '-';
+		long_n = -long_n;
 	}
-	while (num > 0)
+	while (long_n != 0)
 	{
-		nbr = num;
-		if (num > 9)
-			num = (num % 10);
-		str[count] = num + 48;
-		num = nbr / 10;
-		count--;
+		arr[len--] = ((long_n % 10) + 48);
+		long_n /= 10;
 	}
-	return (str);
+	return (arr);
 }

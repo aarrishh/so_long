@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:34:17 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 21:36:55 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:06:39 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ int	ft_strcmp(char *s1, char *s2)
 			return (s1[i] - s2[i]);
 	}
 	return (s1[i] - s2[i]);
+}
+
+int	ft_len(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n < 0)
+		len++;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
 }
 
 void	check_file(char *file)

@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:10:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 22:38:15 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:07:05 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include "get_next_line.h"
 # include "../minilibx-linux/mlx.h"
-
 
 # define TILE 100
 # define ESC 65307
@@ -67,33 +66,43 @@ typedef struct s_map
 	t_game		game;
 }	t_map;
 
-char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin_(char *s1, char *s2);
-char	**gnl_call(char *str);
-void	check(char **str, t_map *map);
-void	print_error(void);
-void	free_matrix(char **buffer);
-void	flood_fill(char **map, t_map *map_s, int width, int height);
-int		height_map(char **map, t_map *map_s);
-int		width_map(char **map, t_map *map_s);
-void	player_x(char **str, t_map *map);
-void	player_y(char **str, t_map *map);
-void	mlx(char **str, t_map *map);
-int		handle_keypress(int keycode, t_map *map);
-void	redraw(t_map *map);
+// Libft Functions
 char	*ft_itoa(int nbr);
+int		ft_len(int n);
+char	**gnl_call(char *str);
+int		is_white_space(char c);
+char	*ft_strjoin_(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+int		cal_ind(const char *s1, const char *set);
+char	*ft_strtrim(char const *s1, char const *set);
+int		cal_end(const char *s1, const char *set, int end, int i);
+
+// Check And Free
+void	free_array(char **buffer);
+void	free_matrix(char **buffer);
+void	check(char **str, t_map *map);
+void	check_e_and_c_in_map(char **map);
+int		line_contain_only_white_spaces(char *str);
+void	free_when_position_negative(char **buffer, char **str);
+
+// MLX
 void	redraw(t_map *map);
 void	game_loop(t_map *map);
-int		close_window(void *param);
-int		is_white_space(char c);
-int		line_contain_only_white_spaces(char *str);
-void	check_e_and_c_in_map(char **map);
-char	**copy_map(char **str, t_map *map, int i);
-int		cal_ind(const char *s1, const char *set);
-int		cal_end(const char *s1, const char *set, int end, int i);
-void	free_when_position_negative(char **buffer, char **str);
-void	free_array(char **buffer);
 void	move_player(t_map *map);
+int		close_window(void *param);
+void	mlx(char **str, t_map *map);
+int		handle_keypress(int keycode, t_map *map);
+int		handle_keyrelease(int keycode, t_map *map);
+
+// Map And Player
+void	player_x(char **str, t_map *map);
+void	player_y(char **str, t_map *map);
+int		width_map(char **map, t_map *map_s);
+int		height_map(char **map, t_map *map_s);
+char	**copy_map(char **str, t_map *map, int i);
+void	flood_fill(char **map, t_map *map_s, int width, int height);
+
+// Error
+void	print_error(void);
 
 #endif
