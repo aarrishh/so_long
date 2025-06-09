@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:34:17 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/08 19:06:39 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:30:18 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,11 @@ int	main(int argc, char **argv)
 		check_file(argv[1]);
 		res = gnl_call(argv[1]);
 		if (!res || !(*res))
-		{
-			free(res);
-			print_error();
-		}
+			print_error("Validation error\n", res);
 		check(res, &map);
 		free_matrix(res);
 	}
 	else
-		write(2, "Error\n", 6);
+		return(write(2, "Error\n", 6), 1);
 	return (0);
 }

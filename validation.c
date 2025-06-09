@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:09:13 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/08 19:01:53 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:25:19 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,27 @@ void	check_white_spaces(char **str, int i, int j, char **buffer)
 			j++;
 		else
 		{
-			free_matrix(str);
 			while (i >= 0)
 			{
 				free(buffer[i]);
 				i--;
 			}
 			free(buffer);
-			print_error();
+			print_error("Contain another symbols without white spaces\n", str);
 		}
 	}
+}
+
+void	foo(char **str, char **buffer, int i)
+{
+	i--;
+	if (buffer)
+	{
+		while (i >= 0)
+			free(buffer[i--]);
+		free(buffer);
+	}
+	print_error("Line contain only white spaces\n", str);
 }
 
 char	**remove_white_spaces(char **str, int i)
@@ -71,7 +82,7 @@ char	**remove_white_spaces(char **str, int i)
 	while (str[i])
 	{
 		if (line_contain_only_white_spaces(str[i]) == 1)
-			print_error();
+			foo(str, buffer, i);
 		j = 0;
 		while (str[i][j])
 		{
@@ -91,6 +102,22 @@ char	**remove_white_spaces(char **str, int i)
 	return (buffer);
 }
 
+void	check_new_line(char *res)
+{
+	int	i;
+
+	i = 0;
+	while (res[i] && res[i + 1])
+	{
+		if (res[i] == '\n' && res[i + 1] == '\n')
+		{
+			free(res);
+			print_error("Validation error\n", NULL);
+		}
+		i++;
+	}
+}
+
 char	**gnl_call(char *str)
 {
 	int		fd;
@@ -104,7 +131,7 @@ char	**gnl_call(char *str)
 	res = NULL;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		print_error();
+		print_error("Can not open file\n", NULL);
 	cur_line = get_next_line(fd);
 	while (cur_line != NULL)
 	{
@@ -114,6 +141,7 @@ char	**gnl_call(char *str)
 	}
 	free(cur_line);
 	res = ft_strtrim(res, "\n\t\v\r\f ");
+	check_new_line(res);
 	split = ft_split(res, '\n');
 	buffer = remove_white_spaces(split, 0);
 	return (buffer);

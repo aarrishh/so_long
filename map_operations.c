@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:16 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 17:00:51 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:30:25 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_e_and_c_in_map(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] == 'E' || map[i][j] == 'C')
-				print_error();
+				print_error("Flood Fill error\n", map);
 			j++;
 		}
 		i++;

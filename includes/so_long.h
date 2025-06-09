@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:10:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/08 19:07:05 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:32:15 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ char	**copy_map(char **str, t_map *map, int i);
 void	flood_fill(char **map, t_map *map_s, int width, int height);
 
 // Error
-void	print_error(void);
-
+void	print_error(char *error, char **str);
 #endif

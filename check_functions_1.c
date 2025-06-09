@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:57:56 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 17:44:00 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:23:43 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_trim(char const *s1, char const *set, int i)
 	return (-1);
 }
 
-int	check_new_line(char const *s1, char c, int i)
+int	check_new_line_1(char const *s1, char c, int i)
 {
 	while (i > 0 && s1[i] != c)
 		i--;
@@ -43,7 +43,7 @@ int	cal_ind(const char *s1, const char *set)
 		if (check_trim(s1, set, i) == 0)
 			i++;
 		else if (check_trim(s1, set, i) == -1)
-			return (check_new_line(s1, '\n', i));
+			return (check_new_line_1(s1, '\n', i));
 	}
 	return (i);
 }

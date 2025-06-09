@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/08 18:57:18 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:08:29 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_equal_line_len(char **str)
 		first_len = ft_strlen(str[i]);
 		second_len = ft_strlen(str[i + 1]);
 		if (first_len != second_len)
-			print_error();
+			print_error("Lines don't equal!\n", str);
 		i++;
 	}
 }
@@ -37,28 +37,28 @@ void	j_plus_plus(int *j, int *cur_line)
 	(*cur_line)++;
 }
 
-void	check_valid_character(char *str, int flag, t_map *map)
+void	check_valid_character(char **str, int i, int flag, t_map *map)
 {
 	int	j;
 
 	j = 0;
-	while (str[j])
+	while (str[i][j])
 	{
-		if (str[j] == '1' || str[j] == '0'
-			|| str[j] == 'M')
+		if (str[i][j] == '1' || str[i][j] == '0'
+			|| str[i][j] == 'M')
 			j++;
-		else if (str[j] == 'P')
+		else if (str[i][j] == 'P')
 			j_plus_plus(&j, &(map->count_p));
-		else if (str[j] == 'E')
+		else if (str[i][j] == 'E')
 			j_plus_plus(&j, &(map->count_e));
-		else if (str[j] == 'C')
+		else if (str[i][j] == 'C')
 			j_plus_plus(&j, &(map->count_c));
 		else
-			print_error();
+			print_error("Map contain invalid character\n", str);
 	}
 	if (flag == 1 && (map->count_e != 1 || map->count_p != 1
 			|| map->count_c < 1))
-		print_error();
+		print_error("Invalid count of characters\n", str);
 }
 
 void	check_wall(char **str)
@@ -71,20 +71,20 @@ void	check_wall(char **str)
 	while (str[0][j] != '\0')
 	{
 		if (str[0][j] != '1')
-			print_error();
+			print_error("Wall Error\n", str);
 		j++;
 	}
-	while (str[i + 1])
+	while (str[i] && str[i + 1])
 	{
 		if (str[i][0] != '1' || str[i][ft_strlen(str[i]) - 1] != '1')
-			print_error();
+			print_error("Wall Error\n", str);
 		i++;
 	}
 	j = 0;
-	while (str[i][j])
+	while (str[i] && str[i][j])
 	{
 		if (str[i][j] != '1')
-			print_error();
+			print_error("Wall Error\n", str);
 		j++;
 	}
 }
@@ -103,7 +103,8 @@ void	check(char **str, t_map *map)
 	{
 		if (str[i + 1] == NULL)
 			flag = 1;
-		check_valid_character(str[i++], flag, map);
+		check_valid_character(str, i, flag, map);
+		i++;
 	}
 	player_x(str, map);
 	player_y(str, map);

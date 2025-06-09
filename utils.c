@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:47:22 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/05 16:51:00 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:30:53 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	is_white_space(char c)
 	return (0);
 }
 
-void	print_error(void)
+void	print_error(char *error, char **str)
 {
+	free_matrix(str);
 	write(1, "Error\n", 6);
+	write(1, error, ft_strlen(error));
 	exit(1);
 }
 
@@ -57,6 +59,5 @@ int	line_contain_only_white_spaces(char *str)
 void	free_when_position_negative(char **buffer, char **str)
 {
 	free_matrix(buffer);
-	free_matrix(str);
-	print_error();
+	print_error("Negative position\n", str);
 }
