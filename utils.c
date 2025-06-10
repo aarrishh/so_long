@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:47:22 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 20:30:53 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:25:38 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,22 @@ int	is_white_space(char c)
 	return (0);
 }
 
-void	print_error(char *error, char **str)
+void	check_white_spaces(char **str, int i, int j, char **buffer)
 {
-	free_matrix(str);
-	write(1, "Error\n", 6);
-	write(1, error, ft_strlen(error));
-	exit(1);
-}
-
-void	free_matrix(char **buffer)
-{
-	int	ind;
-
-	ind = 0;
-	if (buffer)
+	while (str[i][j] && str[i][j] != '\n')
 	{
-		while (buffer[ind])
-			free(buffer[ind++]);
-		free(buffer);
-		buffer = NULL;
+		if (is_white_space(str[i][j]) == 1)
+			j++;
+		else
+		{
+			while (i >= 0)
+			{
+				free(buffer[i]);
+				i--;
+			}
+			free(buffer);
+			print_error("Contain another symbols without white spaces\n", str);
+		}
 	}
 }
 

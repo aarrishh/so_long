@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 20:18:12 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/08 18:20:57 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 18:32:57 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ void	set_image(t_map *map, char **str, int *img_width, int *img_height)
 	map->game.win = mlx_new_window(map->game.mlx,
 			map->width * TILE, map->height * TILE, "Minion's game");
 	map->game.img_bg = mlx_xpm_file_to_image(map->game.mlx,
-			"images/background.xpm", img_width, img_height);
+			"textures/background.xpm", img_width, img_height);
 	map->game.img_c = mlx_xpm_file_to_image(map->game.mlx,
-			"images/bananchik.xpm", img_width, img_height);
+			"textures/bananchik.xpm", img_width, img_height);
 	map->game.img_p = mlx_xpm_file_to_image(map->game.mlx,
-			"images/minion.xpm", img_width, img_height);
+			"textures/minion.xpm", img_width, img_height);
 	map->game.img_m = mlx_xpm_file_to_image(map->game.mlx,
-			"images/monster.xpm", img_width, img_height);
+			"textures/monster.xpm", img_width, img_height);
 	map->game.img_m2 = mlx_xpm_file_to_image(map->game.mlx,
-			"images/monster_2.xpm", img_width, img_height);
+			"textures/monster_2.xpm", img_width, img_height);
 	map->game.img_w = mlx_xpm_file_to_image(map->game.mlx,
-			"images/wall.xpm", img_width, img_height);
+			"textures/wall.xpm", img_width, img_height);
 	map->game.img_c_e = mlx_xpm_file_to_image(map->game.mlx,
-			"images/close_door.xpm", img_width, img_height);
+			"textures/close_door.xpm", img_width, img_height);
 	map->game.img_o_e = mlx_xpm_file_to_image(map->game.mlx,
-			"images/open_door.xpm", img_width, img_height);
+			"textures/open_door.xpm", img_width, img_height);
 	if (!map->game.img_bg || !map->game.img_c
 		|| !map->game.img_p || !map->game.img_m || !map->game.img_m2)
 	{

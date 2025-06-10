@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:09:13 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 21:25:19 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:27:11 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,6 @@ void	malloc_and_copy_char(char **str, char **buffer, int i, int j)
 	buffer[i][index_j] = '\0';
 }
 
-void	check_white_spaces(char **str, int i, int j, char **buffer)
-{
-	while (str[i][j] && str[i][j] != '\n')
-	{
-		if (is_white_space(str[i][j]) == 1)
-			j++;
-		else
-		{
-			while (i >= 0)
-			{
-				free(buffer[i]);
-				i--;
-			}
-			free(buffer);
-			print_error("Contain another symbols without white spaces\n", str);
-		}
-	}
-}
-
 void	foo(char **str, char **buffer, int i)
 {
 	i--;
@@ -70,7 +51,7 @@ void	foo(char **str, char **buffer, int i)
 			free(buffer[i--]);
 		free(buffer);
 	}
-	print_error("Line contain only white spaces\n", str);
+	print_error("Line contains only white spaces\n", str);
 }
 
 char	**remove_white_spaces(char **str, int i)
@@ -100,22 +81,6 @@ char	**remove_white_spaces(char **str, int i)
 	}
 	free_matrix(str);
 	return (buffer);
-}
-
-void	check_new_line(char *res)
-{
-	int	i;
-
-	i = 0;
-	while (res[i] && res[i + 1])
-	{
-		if (res[i] == '\n' && res[i + 1] == '\n')
-		{
-			free(res);
-			print_error("Validation error\n", NULL);
-		}
-		i++;
-	}
 }
 
 char	**gnl_call(char *str)

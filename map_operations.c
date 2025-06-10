@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:16 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 20:30:25 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:24:55 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,26 @@ void	check_e_and_c_in_map(char **map)
 		}
 		i++;
 	}
+}
+
+void	free_matrix(char **buffer)
+{
+	int	ind;
+
+	ind = 0;
+	if (buffer)
+	{
+		while (buffer[ind])
+			free(buffer[ind++]);
+		free(buffer);
+		buffer = NULL;
+	}
+}
+
+void	print_error(char *error, char **str)
+{
+	free_matrix(str);
+	write(1, "Error\n", 6);
+	write(1, error, ft_strlen(error));
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:10:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 20:32:15 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:26:43 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,14 @@ char	*ft_strtrim(char const *s1, char const *set);
 int		cal_end(const char *s1, const char *set, int end, int i);
 
 // Check And Free
+void	check_new_line(char *res);
 void	free_array(char **buffer);
 void	free_matrix(char **buffer);
 void	check(char **str, t_map *map);
 void	check_e_and_c_in_map(char **map);
 int		line_contain_only_white_spaces(char *str);
 void	free_when_position_negative(char **buffer, char **str);
+void	check_white_spaces(char **str, int i, int j, char **buffer);
 
 // MLX
 void	redraw(t_map *map);

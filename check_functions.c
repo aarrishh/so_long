@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:12:45 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 21:08:29 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:06:26 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_valid_character(char **str, int i, int flag, t_map *map)
 		else if (str[i][j] == 'C')
 			j_plus_plus(&j, &(map->count_c));
 		else
-			print_error("Map contain invalid character\n", str);
+			print_error("Map contains invalid character\n", str);
 	}
 	if (flag == 1 && (map->count_e != 1 || map->count_p != 1
 			|| map->count_c < 1))

@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:34:17 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/09 20:30:18 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:21:00 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ int	main(int argc, char **argv)
 		free_matrix(res);
 	}
 	else
-		return(write(2, "Error\n", 6), 1);
+		return (write (2, "Error\n", 6), 1);
 	return (0);
 }
