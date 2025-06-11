@@ -6,7 +6,7 @@
 /*   By: arimanuk <arimanuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:10:00 by arimanuk          #+#    #+#             */
-/*   Updated: 2025/06/10 17:26:43 by arimanuk         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:38:34 by arimanuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 # define TILE 100
 # define ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
+# define KEY_W 16778616
+# define KEY_A 16778593
+# define KEY_S 16778621
+# define KEY_D 16778596
 # define UP 65362
 # define DOWN 65364
 # define LEFT 65361
