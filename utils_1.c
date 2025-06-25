@@ -60,7 +60,7 @@ char	*ft_strdup(char *str)
 	buffer = NULL;
 	while (str[i])
 		i++;
-	buffer = (char *)malloc(i * sizeof(char));
+	buffer = (char *)malloc((i + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	i = 0;
